@@ -1,0 +1,10 @@
+# METADATA
+# category: consistency_test
+# language: ko
+# voice: Leda
+# emotion: calm
+# style_instruction: null
+# sub_strategy: s3_single
+# description: Strategy 3 - Single-speaker (Leda)
+# ---SCRIPT_BELOW---
+안녕하세요. 오늘은 한국의 사계절을 소개합니다. 봄에는 벚꽃이 만발하고 따뜻한 바람이 불어옵니다. 여름에는 시원한 바다와 계곡을 찾는 사람들이 많습니다. 가을에는 단풍이 산을 붉게 물들이고, 겨울에는 흰 눈이 도시를 덮습니다. 한국의 사계절은 각기 다른 매력을 지니고 있습니다.

@@ -1,0 +1,23 @@
+# METADATA
+# category: topik_long_chunked
+# language: mixed
+# voice: Kore
+# emotion: calm
+# style_instruction: Audio Profile: A 35-year-old female Korean language teacher named Minji, warm and articulate, calm authoritative mid-tone, composed delivery, with a calm yet engaging delivery style. Scene: Recording a TOPIK Korean lesson podcast for adult Mandarin Chinese speakers in a quiet professional studio. The audience is beginner-level, motivated to learn. Director's Notes: Style: Calm, encouraging, clearly instructive. Vocal smile when introducing new vocabulary. Pacing: Steady at ~150-160 wpm. Slight pauses (0.4-0.6s) before and after each Korean example phrase. Accent: Standard Seoul Korean for Korean phrases, native Mandarin Chinese for explanations. Articulation: Crisp consonants, full vowels. Korean particles clearly marked. Repetition: When introducing a new Korean phrase, slow down 10-15% on the first reading. Sample context: She has just welcomed the listeners and is about to begin today's lesson.
+# description: TOPIK 종합 레슨 (Chunk 병합) - Mandarin speaker용 - 5섹션 청크 분할 후 병합
+# sub_strategy: chunked_5sections_300ms_silence
+# source_scenario_no: 30
+# ---SCRIPT_BELOW---
+Audio Profile: A 35-year-old female Korean language teacher named Minji, warm and articulate, calm authoritative mid-tone, composed delivery, with a calm yet engaging delivery style. Scene: Recording a TOPIK Korean lesson podcast for adult Mandarin Chinese speakers in a quiet professional studio. The audience is beginner-level, motivated to learn. Director's Notes: Style: Calm, encouraging, clearly instructive. Vocal smile when introducing new vocabulary. Pacing: Steady at ~150-160 wpm. Slight pauses (0.4-0.6s) before and after each Korean example phrase. Accent: Standard Seoul Korean for Korean phrases, native Mandarin Chinese for explanations. Articulation: Crisp consonants, full vowels. Korean particles clearly marked. Repetition: When introducing a new Korean phrase, slow down 10-15% on the first reading. Sample context: She has just welcomed the listeners and is about to begin today's lesson.
+
+大家好,欢迎来到今天的TOPIK韩语综合课程。很高兴你来到这里。无论你是完全的零基础学习者,还是想要复习一下基础知识,这节课都是为你准备的。在接下来的大约十分钟里,我们将一起学习四个核心主题。第一,最常用的韩语问候语。第二,用韩语进行自我介绍。第三,每个初学者都必须掌握的基础语法。最后,我们会练习五个能立即用在生活中的实用表达。准备好了吗?那我们开始吧。
+
+我们先从问候语开始。最重要的韩语问候语是 안녕하세요。请慢慢听一遍。안녕하세요。再用自然的语速说一遍。안녕하세요。这个表达字面意思是"您平安吗",但在日常生活中就相当于"您好"。无论早晨、下午还是晚上,无论对陌生人、长辈还是在正式场合,都可以放心使用。接下来,告别的时候,韩语有两种说法,选择哪一种取决于谁先离开。如果是你要离开,对方留下,你说 안녕히 계세요。慢一点。안녕히 계세요。自然语速。안녕히 계세요。계세요 是"请留下"的意思,所以这句话的意思是"请您平安地留在这里"。反过来,如果对方要离开,你留下,你说 안녕히 가세요。慢一点。안녕히 가세요。自然语速。안녕히 가세요。가세요 是"请走"的意思,所以这句话的意思是"请您平安地走"。当你第一次见到某人时,可以说 만나서 반갑습니다。慢一点。만나서 반갑습니다。自然语速。만나서 반갑습니다。意思是"很高兴见到您"。最后,一句温暖的祝福语 잘 지내세요。慢一点。잘 지내세요。自然语速。잘 지내세요。意思是"祝您过得好",相当于中文的"保重"或"过得开心"。
+
+接下来是自我介绍。正式场合介绍自己的基本句型是 저는、名字、입니다。저는 表示"我",입니다 是表示"是"的敬语形式。例如 저는 리밍입니다。慢一点。저는 리밍입니다。自然语速。저는 리밍입니다。意思是"我是李明"。还可以说 제 이름은、名字、입니다,意思是"我的名字是~"。比如 제 이름은 리밍입니다。要说自己来自哪里,使用 저는、国家名、에서 왔어요。에서 是"从",왔어요 是"来"的过去式。例如 저는 중국에서 왔어요。慢一点。저는 중국에서 왔어요。自然语速。저는 중국에서 왔어요。意思是"我来自中国"。要说正在学韩语,可以说 한국어를 공부하고 있습니다。意思是"我正在学习韩语"。慢一点。한국어를 공부하고 있습니다。-고 있습니다 这个语法表示动作正在进行。要说自己的职业,使用 저는、职业、입니다。比如 저는 학생입니다 表示"我是学生",저는 회사원입니다 表示"我是上班族"。要说兴趣爱好,使用 제 취미는、爱好、입니다。例如 제 취미는 독서입니다。意思是"我的爱好是读书"。
+
+现在我们来学习基础语法。韩语有两个初学者必须掌握的礼貌等级。正式体使用 -ㅂ니다 或 -입니다,常见于新闻、商务和需要表示尊重的场合。非正式礼貌体使用 -이에요 或 -예요,用于日常友好的对话。两者都是礼貌的,但正式体更加庄重。比如"我是学生",正式体是 저는 학생입니다,非正式礼貌体是 저는 학생이에요,根据场合选择即可。正式体的疑问句要把 -입니다 改成 -입니까。例如 학생입니까? 意思是"您是学生吗?"句末语调略微上扬,跟中文的疑问句类似。慢一点。학생입니까? 自然语速。학생입니까? 接下来是否定形式。否定有两种方式。简单的方式是在动词前加 안。比如 가다 是"去",所以 안 가요 是"不去"。慢一点。안 가요。另一种较长的形式是在动词词干后加 -지 않다。가다 变成 가지 않아요。意思相同。最后,你必须知道最重要的两组助词。은 和 는 是话题助词,이 和 가 是主语助词。辅音结尾的词后面用 은,元音结尾的词后面用 는。所以 저는 因为元音结尾用 는,책은 也就是"书"是辅音结尾,用 은。同样,主语助词在辅音后用 이,在元音后用 가。话题助词指出句子在谈论什么,主语助词标明动作的主体。这个区别需要时间来掌握,刚开始觉得难是正常的。
+
+现在我们来学实用表达。这五个短语在日常生活中会让你立刻派上用场。第一个,礼貌地表达感谢 감사합니다。慢一点。감사합니다。自然语速。감사합니다。意思是"谢谢您"。比较随意一点的 고맙습니다 也很常用。第二个,道歉时说 죄송합니다。慢一点。죄송합니다。自然语速。죄송합니다。意思是"对不起",几乎所有需要道歉的场合都可以使用。第三个,请求帮助 도와주세요。慢一点。도와주세요。自然语速。도와주세요。意思是"请帮帮我",当你迷路或遇到麻烦时这句话能救你。第四个,购物或问价格的时候 얼마예요? 慢一点。얼마예요? 自然语速。얼마예요? 意思是"多少钱?"指着商品问就可以,在市场和店铺都非常实用。第五个,如果你没听清楚对方说的话,可以礼貌地请求重复 한 번 더 말씀해 주세요。慢一点。한 번 더 말씀해 주세요。自然语速。한 번 더 말씀해 주세요。意思是"请再说一遍"。比直接说"什么?"礼貌得多。
+
+今天你做得非常棒。让我们简单回顾一下。我们学习了 안녕하세요、안녕히 가세요、안녕히 계세요 等基本问候语。我们用 저는、名字、입니다 这个句型练习了自我介绍。我们学习了正式体 -입니다、疑问形 -입니까、否定 안,以及话题助词 은 和 는、主语助词 이 和 가。我们还掌握了 감사합니다、죄송합니다、도와주세요 等五个生活常用语。下一节课,我们会一起学习数字、时间表达,以及在餐厅点餐。在那之前,请把今天学的句子大声念出来反复练习。哪怕觉得有点不好意思也没关系,大声开口说话是建立自信最快的方法。所有现在能流利说韩语的人,都曾经站在你今天站的位置上。화이팅。你一定可以做到的。我们下节课再见。안녕히 계세요。

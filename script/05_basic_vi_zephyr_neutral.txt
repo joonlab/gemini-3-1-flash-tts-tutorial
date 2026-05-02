@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: vi
+# voice: Zephyr
+# emotion: neutral
+# style_instruction: null
+# description: 베트남어 기본 인사 및 자기소개
+# ---SCRIPT_BELOW---
+Xin chào quý vị. Tôi là Gemini, mô hình tổng hợp giọng nói do Google phát triển. Hôm nay tôi rất vui được giới thiệu khả năng phát âm tiếng Việt tự nhiên đến với các bạn.

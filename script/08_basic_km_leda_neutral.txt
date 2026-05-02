@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: km
+# voice: Leda
+# emotion: neutral
+# style_instruction: null
+# description: 크메르어 기본 인사 (실험적 - 공식 미지원, 언어 자동 감지)
+# ---SCRIPT_BELOW---
+ជំរាបសួរ​អ្នក​ទាំងអស់គ្នា។ ខ្ញុំ​ឈ្មោះ Gemini។ ខ្ញុំ​ជា​ម៉ូដែល​សំយោគ​សំឡេង​ដែល​បង្កើត​ដោយ​ក្រុមហ៊ុន Google។ ថ្ងៃនេះ ខ្ញុំ​នឹង​បង្ហាញ​ការ​បញ្ចេញ​សំឡេង​ភាសាខ្មែរ​យ៉ាង​ធម្មជាតិ។ សូម​អរគុណ។

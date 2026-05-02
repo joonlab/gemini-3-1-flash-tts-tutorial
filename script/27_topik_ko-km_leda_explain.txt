@@ -1,0 +1,9 @@
+# METADATA
+# category: topik_mixed
+# language: mixed
+# voice: Leda
+# emotion: calm
+# style_instruction: Read this TOPIK Korean lesson for Khmer (Cambodian) learners. Switch fluently between Khmer (for explanations) and Korean (for example phrases). Use native-level pronunciation in BOTH languages with a calm, gentle, and instructive teacher's tone:
+# description: TOPIK 해설 - 크메르어 화자 학습자용 (크메르어로 한국어 인사 설명, 실험적)
+# ---SCRIPT_BELOW---
+សូមស្វាគមន៍មកកាន់មេរៀនភាសាកូរ៉េ TOPIK ថ្ងៃនេះ។ នៅក្នុងមេរៀននេះ យើងនឹងរៀនពាក្យស្វាគមន៍ដ៏សំខាន់បំផុតក្នុងភាសាកូរ៉េ។ ពាក្យនោះគឺ 안녕하세요។ សូមស្តាប់ម្តងទៀតយ៉ាងយកចិត្តទុកដាក់៖ 안녕하세요។ នេះគឺជាទម្រង់គួរសម ដែលអាចប្រើបានគ្រប់ពេលវេលា ទាំងព្រឹក ថ្ងៃ និងល្ងាច។ ពាក្យនេះសមរម្យសម្រាប់ប្រើជាមួយមនុស្សដែលមិនស្គាល់ មនុស្សជាន់ខ្ពស់ ឬនៅក្នុងស្ថានភាពផ្លូវការ។ ឥឡូវសូមអនុវត្តជាមួយប្រយោគពេញលេញ៖ 안녕하세요, 만나서 반갑습니다. ឃ្លានេះមានន័យថា «សួស្តី រីករាយណាស់ដែលបានជួប»។ សូមនិយាយតាមខ្ញុំយឺតៗ និងច្បាស់៖ 안녕하세요, 만나서 반갑습니다. ចូរចងចាំថា ការលើកសំឡេងបន្តិចនៅចុងប្រយោគធ្វើឲ្យពាក្យស្វាគមន៍កាន់តែកក់ក្តៅ និងរួសរាយ។

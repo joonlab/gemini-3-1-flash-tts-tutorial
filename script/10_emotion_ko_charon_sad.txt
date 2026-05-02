@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Charon
+# emotion: sad
+# style_instruction: Say in a slow, melancholic, and sad tone:
+# description: 슬픈 회상, [sad] 인라인 태그
+# ---SCRIPT_BELOW---
+[sad] 그날의 풍경이 아직도 눈앞에 선명합니다. 우리는 같은 길을 걸었지만, 어느 순간 서로 다른 방향을 바라보고 있었지요. 그저 시간이 너무 빠르게 흘러갔습니다.

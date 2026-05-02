@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Google Gemini 3.1 Flash TTS Preview 모델로 만든 27개 다국어/다감정 음성 합성 튜토리얼" />
+  <title>Gemini 3.1 Flash TTS · 튜토리얼 대시보드</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <aside class="sidebar" id="sidebar" aria-label="대시보드 메뉴">
+    <div class="brand">
+      <div class="brand-title">Gemini 3.1 Flash TTS</div>
+      <div class="brand-sub" id="brand-model-id">gemini-3.1-flash-tts-preview</div>
+    </div>
+
+    <nav class="menu" role="navigation">
+      <a class="menu-item" data-view="overview" href="#overview">
+        <span class="menu-icon">📊</span><span>개요</span>
+      </a>
+
+      <div class="menu-group-header">🧪 테스트 시나리오</div>
+      <div id="category-menu-list"></div>
+
+      <div class="menu-group-header">💻 코드 가이드</div>
+      <a class="menu-item" data-view="code-overview" href="#code-overview">
+        <span>코드 개요</span>
+      </a>
+      <div id="code-menu-list"></div>
+
+      <div class="menu-group-header">📚 모델 & 가격</div>
+      <a class="menu-item" data-view="model-info" href="#model-info">
+        <span class="menu-icon">📘</span><span>모델 정보</span>
+      </a>
+      <a class="menu-item" data-view="pricing" href="#pricing">
+        <span class="menu-icon">💰</span><span>가격 정책</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="footer-tag">v0.1 · 2026.05.03</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- Overview -->
+    <section class="view" id="view-overview">
+      <header class="hero">
+        <h1 class="hero-title">Gemini 3.1 Flash TTS<br/><span class="hero-accent">튜토리얼 대시보드</span></h1>
+        <p class="hero-sub" id="hero-sub">27개 시나리오 · 9개 언어 · 5개 voice · Multi-language emotion control</p>
+      </header>
+
+      <div class="stat-grid" id="stat-grid"></div>
+
+      <div class="card section-card">
+        <h2 class="section-title">카테고리 분포</h2>
+        <div class="bar-chart" id="bar-chart"></div>
+      </div>
+
+      <div class="card section-card">
+        <h2 class="section-title">이 프로젝트는 무엇인가?</h2>
+        <p class="prose">
+          <strong>Google Gemini 3.1 Flash TTS Preview</strong> 모델을 직접 호출해 만든 27개 음성 합성 시나리오 모음입니다.
+          한국어부터 우즈벡어·크메르어까지 9개 언어, 5개 voice, 인라인 태그(<code>[whispers]</code>, <code>[excited]</code>)와
+          자연어 style instruction 기반의 감정 제어까지 한 번에 비교해볼 수 있습니다.
+        </p>
+        <p class="prose">
+          모든 오디오는 24kHz / 16-bit / mono PCM이며, 카드의 재생 버튼을 누르면 바로 들을 수 있습니다.
+          왼쪽 메뉴에서 카테고리·코드·가격을 자유롭게 탐색해보세요.
+        </p>
+      </div>
+    </section>
+
+    <!-- Category views (dynamic) -->
+    <div id="category-views-mount"></div>
+
+    <!-- Code views -->
+    <section class="view" id="view-code-overview"></section>
+    <section class="view" id="view-code-detail"></section>
+
+    <!-- Model info -->
+    <section class="view" id="view-model-info"></section>
+
+    <!-- Pricing -->
+    <section class="view" id="view-pricing"></section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markdown.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-bash.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

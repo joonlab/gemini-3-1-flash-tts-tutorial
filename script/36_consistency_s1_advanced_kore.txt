@@ -1,0 +1,20 @@
+# METADATA
+# category: consistency_test
+# language: ko
+# voice: Kore
+# emotion: calm
+# style_instruction: advanced_prompt_minji
+# sub_strategy: s1_advanced
+# description: Strategy 1 - Advanced prompt (Audio Profile + Scene + Director's Notes, Kore=Minji persona)
+# ---SCRIPT_BELOW---
+Audio Profile: A 35-year-old female Korean teacher named Minji,
+  warm, articulate, mid-low pitch, slow-medium pace.
+Scene: Recording a Korean culture podcast for adult learners
+  in a quiet professional studio.
+Director's Notes:
+  - Style: Calm, encouraging, evocative
+  - Pacing: Steady ~150 wpm, 0.5s pauses between examples
+  - Articulation: Crisp consonants, full vowels
+Sample context: She has just greeted the listeners.
+[transcript begins]
+안녕하세요. 오늘은 한국의 사계절을 소개합니다. 봄에는 벚꽃이 만발하고 따뜻한 바람이 불어옵니다. 여름에는 시원한 바다와 계곡을 찾는 사람들이 많습니다. 가을에는 단풍이 산을 붉게 물들이고, 겨울에는 흰 눈이 도시를 덮습니다. 한국의 사계절은 각기 다른 매력을 지니고 있습니다.

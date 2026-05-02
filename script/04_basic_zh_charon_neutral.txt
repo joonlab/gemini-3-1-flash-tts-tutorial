@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: zh
+# voice: Charon
+# emotion: neutral
+# style_instruction: null
+# description: 중국어 간체 기본 인사 및 자기소개
+# ---SCRIPT_BELOW---
+大家好,我是谷歌开发的语音合成模型 Gemini。今天我将为您展示中文普通话的自然发音。希望您喜欢这次的演示。

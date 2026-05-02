@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: uz
+# voice: Puck
+# emotion: neutral
+# style_instruction: null
+# description: 우즈벡어 기본 인사 (실험적 - 공식 미지원, 언어 자동 감지)
+# ---SCRIPT_BELOW---
+Assalomu alaykum, hurmatli tinglovchilar. Mening ismim Gemini. Men Google kompaniyasi tomonidan ishlab chiqilgan nutq sintezi modeliman. Bugun sizga oʻzbek tilidagi tabiiy talaffuzni namoyish etaman. Rahmat.

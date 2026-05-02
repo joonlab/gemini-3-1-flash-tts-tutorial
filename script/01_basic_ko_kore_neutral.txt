@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: ko
+# voice: Kore
+# emotion: neutral
+# style_instruction: null
+# description: 한국어 기본 인사 및 자기소개
+# ---SCRIPT_BELOW---
+안녕하세요. 저는 인공지능 음성 모델 Gemini입니다. 오늘은 여러분께 다양한 음성 합성 기능을 소개해 드리겠습니다. 한국어, 영어, 일본어를 비롯한 여러 언어를 자연스럽게 발화할 수 있습니다.

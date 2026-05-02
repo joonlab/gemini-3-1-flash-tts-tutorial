@@ -1,0 +1,9 @@
+# METADATA
+# category: topik_mixed
+# language: mixed
+# voice: Charon
+# emotion: calm
+# style_instruction: Read this TOPIK Korean lesson for Uzbek learners. Switch fluently between Uzbek (for explanations) and Korean (for example phrases). Use native-level pronunciation in BOTH languages with a calm, clear, and instructive teacher's tone:
+# description: TOPIK 해설 - 우즈벡어 화자 학습자용 (우즈벡어로 한국어 인사 설명, 실험적)
+# ---SCRIPT_BELOW---
+Bugungi TOPIK koreys tili darsiga xush kelibsiz. Bugun biz koreys tilidagi eng asosiy salomlashish iborasini o'rganamiz. Bu ibora — 안녕하세요. Yana bir marta diqqat bilan tinglang: 안녕하세요. Bu hurmatli shakl bo'lib, ertalab, kunduzi yoki kechqurun istalgan vaqtda qo'llanilishi mumkin. Bu iborani notanish odamlar bilan, kattalar bilan yoki rasmiy vaziyatlarda ishlatish mumkin. Endi to'liq jumla bilan mashq qilamiz: 안녕하세요, 만나서 반갑습니다. Bu jumla "Salom, siz bilan tanishganimdan xursandman" degan ma'noni anglatadi. Mendan keyin sekin va aniq takrorlang: 안녕하세요, 만나서 반갑습니다. Esda tuting, jumla oxiridagi ohangni biroz ko'tarib aytsangiz, salom yanada samimiy va do'stona eshitiladi.

@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: en
+# voice: Puck
+# emotion: neutral
+# style_instruction: null
+# description: English greeting and self-introduction
+# ---SCRIPT_BELOW---
+Hello, my name is Gemini. I'm a text-to-speech model developed by Google DeepMind. Today, I'd like to walk you through some of my voice capabilities, including emotion control, multiple speakers, and natural-sounding speech across many languages.

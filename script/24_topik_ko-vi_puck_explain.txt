@@ -1,0 +1,9 @@
+# METADATA
+# category: topik_mixed
+# language: mixed
+# voice: Puck
+# emotion: calm
+# style_instruction: Read this TOPIK Korean lesson for Vietnamese learners. Switch fluently between Vietnamese (for explanations) and Korean (for example phrases). Use native-level pronunciation in BOTH languages with a calm, friendly, and instructive teacher's tone:
+# description: TOPIK 해설 - 베트남어 화자 학습자용 (베트남어로 한국어 인사 설명)
+# ---SCRIPT_BELOW---
+Chào mừng các bạn đến với bài học tiếng Hàn TOPIK hôm nay. Trong bài này, chúng ta sẽ học cách chào hỏi cơ bản nhất trong tiếng Hàn. Đó là câu 안녕하세요. Hãy nghe lại một lần nữa thật kỹ: 안녕하세요. Đây là dạng lịch sự, có thể dùng vào buổi sáng, buổi trưa hay buổi tối đều được. Bạn có thể nói câu này khi gặp người lạ, người lớn tuổi hoặc trong các tình huống trang trọng. Bây giờ chúng ta hãy luyện tập với một câu đầy đủ: 안녕하세요, 만나서 반갑습니다. Câu này có nghĩa là "Xin chào, rất vui được gặp bạn." Các bạn hãy lặp lại theo tôi từng chút một: 안녕하세요, 만나서 반갑습니다. Hãy nhớ nâng nhẹ ngữ điệu ở cuối câu để câu chào nghe tự nhiên và thân thiện hơn.

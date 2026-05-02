@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Puck
+# emotion: angry
+# style_instruction: Say angrily and with a strong, forceful tone:
+# description: 강한 어조의 항변, [angrily] 인라인 태그
+# ---SCRIPT_BELOW---
+[angrily] 도대체 몇 번을 말해야 알아듣겠어요! 같은 실수를 계속 반복하면 어떡합니까. 이건 절대 그냥 넘어갈 수 있는 문제가 아닙니다. 지금 당장 다시 처음부터 점검하세요.

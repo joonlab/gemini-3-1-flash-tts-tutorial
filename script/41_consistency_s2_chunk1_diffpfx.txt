@@ -1,0 +1,15 @@
+# METADATA
+# category: consistency_test
+# language: ko
+# voice: Kore
+# emotion: calm
+# style_instruction: prefix_minji_v1
+# sub_strategy: s2_diff_pfx
+# description: Strategy 2 - chunk1 with prefix A (Minji teacher persona, 사계절)
+# ---SCRIPT_BELOW---
+Audio Profile: Minji, 35yo female Korean teacher, calm articulate.
+Scene: Quiet podcast studio, lesson recording.
+Director's Notes: Steady pacing, encouraging tone.
+Sample context: She continues the lesson.
+[transcript begins]
+안녕하세요. 오늘은 한국의 문화와 사계절에 대해 함께 이야기해 보겠습니다. 한국은 사계절이 매우 뚜렷한 나라입니다. 봄에는 벚꽃이 만발하여 거리마다 분홍빛으로 물듭니다. 사람들은 가족과 함께 공원으로 나가 꽃놀이를 즐깁니다. 여름이 오면 날씨가 매우 더워지고, 사람들은 시원한 바다와 계곡으로 휴가를 떠납니다. 부산의 해운대와 강원도의 계곡은 여름철 인기 명소입니다. 가을에는 단풍이 산을 붉게 물들이고, 청명한 하늘과 선선한 바람이 사람들의 마음을 사로잡습니다. 설악산과 내장산은 가을 단풍의 절경으로 유명합니다. 겨울이 되면 흰 눈이 도시와 산을 덮고, 곳곳에서 스키와 눈썰매를 즐기는 사람들로 붐빕니다. 이렇듯 한국의 사계절은 저마다 다른 풍경과 매력을 지니고 있습니다.

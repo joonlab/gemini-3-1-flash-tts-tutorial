@@ -1,0 +1,9 @@
+# METADATA
+# category: parameter
+# language: ko
+# voice: Kore
+# emotion: neutral
+# style_instruction: Read like a warm, gentle storyteller for young children, with soft and friendly tone:
+# description: 동화 구연 스타일 - 동일 텍스트 다른 스타일 비교용
+# ---SCRIPT_BELOW---
+오늘 오전 9시, 정부는 새로운 인공지능 산업 진흥 정책을 공식 발표했습니다. 이번 정책은 향후 5년간 총 2조 원 규모의 예산이 투입될 예정이며, 국내 AI 스타트업 육성에 초점을 맞추고 있습니다.

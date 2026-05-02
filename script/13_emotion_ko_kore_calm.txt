@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Kore
+# emotion: calm
+# style_instruction: Say in a calm, slow, and soothing tone, as a meditation guide:
+# description: 차분한 명상 가이드
+# ---SCRIPT_BELOW---
+[calmly] 편안하게 자리에 앉아 보세요. 천천히 숨을 들이쉬고, 더 천천히 내쉬어 보세요. 지금 이 순간, 당신의 호흡에만 집중합니다. 마음속의 모든 생각을 잠시 흘려보내세요.

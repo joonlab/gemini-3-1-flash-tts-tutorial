@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: ru
+# voice: Kore
+# emotion: neutral
+# style_instruction: null
+# description: 러시아어 기본 인사 및 자기소개 (Cyrillic)
+# ---SCRIPT_BELOW---
+Здравствуйте, дорогие слушатели. Меня зовут Джемини. Я модель синтеза речи, разработанная компанией Google. Сегодня я продемонстрирую естественное произношение на русском языке.

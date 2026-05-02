@@ -1,0 +1,9 @@
+# METADATA
+# category: voice_compare
+# language: ko
+# voice: Charon
+# emotion: neutral
+# style_instruction: null
+# description: Voice 비교용 동일 텍스트 (Charon - Informative)
+# ---SCRIPT_BELOW---
+안녕하세요. 저는 인공지능 음성 모델 Gemini입니다. 오늘 날씨가 정말 좋네요.

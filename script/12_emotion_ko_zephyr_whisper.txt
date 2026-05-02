@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Zephyr
+# emotion: whisper
+# style_instruction: Read the following Korean text aloud in a very soft, quiet whisper, as if telling a friend a fun surprise:
+# description: 속삭이는 톤, [whispers] 인라인 태그
+# ---SCRIPT_BELOW---
+[whispers] 잠깐만, 이리 와 봐. 너한테만 살짝 알려 줄게. 다음 주 토요일에 우리 친구들이 깜짝 생일 파티를 준비하고 있어. 케이크도 있고, 선물도 있어. 그러니까 그날 일정을 꼭 비워 둬. 알았지?

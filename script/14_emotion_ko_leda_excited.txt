@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Leda
+# emotion: excited
+# style_instruction: Read the following Korean text aloud with very high energy, enthusiasm, and excitement, like a sports broadcaster on a thrilling final play:
+# description: 흥분된 스포츠 중계 톤
+# ---SCRIPT_BELOW---
+[excited] 자 여러분, 드디어 경기 종료까지 일 분이 남았습니다! 우리 팀이 한 골만 더 넣으면 대역전이에요! 끝까지 포기하지 마세요! 모두 함께 응원합시다! 할 수 있다, 할 수 있다, 할 수 있다!

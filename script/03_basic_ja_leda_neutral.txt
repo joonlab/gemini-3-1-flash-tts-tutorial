@@ -1,0 +1,9 @@
+# METADATA
+# category: basic
+# language: ja
+# voice: Leda
+# emotion: neutral
+# style_instruction: null
+# description: 일본어 기본 인사 및 자기소개
+# ---SCRIPT_BELOW---
+こんにちは、皆さん。私はGoogleが開発した音声合成モデル、Geminiと申します。本日は日本語の自然な発音をお聞きいただきます。よろしくお願いいたします。

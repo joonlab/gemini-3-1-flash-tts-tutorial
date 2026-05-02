@@ -1,0 +1,9 @@
+# METADATA
+# category: topik_mixed
+# language: mixed
+# voice: Zephyr
+# emotion: calm
+# style_instruction: Read this TOPIK Korean lesson for Russian speakers. Switch fluently between Russian (for explanations) and Korean (for example phrases). Use native-level pronunciation in BOTH languages with a calm, clear, and instructive teacher's tone:
+# description: TOPIK 해설 - 러시아어 화자 학습자용 (러시아어로 한국어 인사 설명)
+# ---SCRIPT_BELOW---
+Добро пожаловать на сегодняшний урок корейского языка TOPIK. На этом занятии мы изучим самое базовое корейское приветствие. Это фраза 안녕하세요. Послушайте ещё раз внимательно: 안녕하세요. Это вежливая форма, и её можно использовать в любое время суток — утром, днём или вечером. Эта фраза подходит для общения с незнакомыми людьми, старшими, а также в формальных ситуациях. А теперь давайте попрактикуемся с полным предложением: 안녕하세요, 만나서 반갑습니다. Это означает «Здравствуйте, приятно познакомиться». Повторяйте за мной медленно и чётко: 안녕하세요, 만나서 반갑습니다. Помните, что лёгкое повышение интонации в конце предложения делает приветствие более тёплым и дружелюбным.

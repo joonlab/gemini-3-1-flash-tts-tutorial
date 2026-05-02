@@ -1,0 +1,9 @@
+# METADATA
+# category: emotion
+# language: ko
+# voice: Leda
+# emotion: cheerful
+# style_instruction: Say in a cheerful and happy tone:
+# description: 기쁜 소식 전달, [excited] 인라인 태그
+# ---SCRIPT_BELOW---
+[excited] 여러분, 정말 좋은 소식이에요! 드디어 우리 팀이 이번 프로젝트에서 1등을 차지했습니다. 모두가 함께 노력한 결과예요. 정말 너무 행복해요!

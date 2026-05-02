@@ -1,0 +1,9 @@
+# METADATA
+# category: topik_mixed
+# language: mixed
+# voice: Leda
+# emotion: calm
+# style_instruction: Read this TOPIK Korean lesson for Japanese learners. Switch fluently between Japanese (for explanations) and Korean (for example phrases). Use native-level pronunciation in BOTH languages with a calm, polite, and instructive teacher's tone:
+# description: TOPIK 해설 - 일본어 화자 학습자용 (일본어로 한국어 존댓말 설명)
+# ---SCRIPT_BELOW---
+今日のTOPIK韓国語レッスンへようこそ。今回は、韓国語で最も基本的な挨拶表現を学びます。その表現とは、안녕하세요です。もう一度ゆっくり聞いてください。안녕하세요。これは丁寧な形で、初対面の人や目上の人にも安心して使えます。日本語の「こんにちは」と似ていますが、안녕하세요は朝でも昼でも夜でも使える便利な挨拶です。それでは、文の中で練習してみましょう。안녕하세요, 만나서 반갑습니다. これは「こんにちは、お会いできて嬉しいです」という意味です。私の後について繰り返してみてください。안녕하세요, 만나서 반갑습니다. 文末を少し上げて発音すると、より自然で親しみやすく聞こえます。
