@@ -331,27 +331,43 @@ function renderAllCategories() {
    ------------------------------------------------------------------ */
 const COMPARE_LANG_LABELS = {
   en: 'English',
+  ja: 'Japanese',
+  zh: 'Mandarin',
   vi: 'Vietnamese',
+  ru: 'Russian',
+  uz: 'Uzbek',
   km: 'Khmer',
 };
+
+const COMPARE_LANG_ORDER = ['en', 'ja', 'zh', 'vi', 'ru', 'uz', 'km'];
+const EXPERIMENTAL_LANGS = new Set(['uz', 'km']);
+
+function extractLangFromFilename(sc) {
+  if (!sc) return null;
+  const base = sc.filename_base || sc.audio_relative_path || '';
+  const m = base.match(/ko-([a-z]{2})/i);
+  return m ? m[1].toLowerCase() : null;
+}
 
 function renderTopikLongOptimizedView(meta, scenarios) {
   // v2 시나리오: scenarios (이미 cat === topik_long_optimized 필터됨)
   // 각 v2 시나리오 → source_scenario_no_v0 / source_scenario_no_v1 로 v0/v1 매칭
   const byNo = new Map(DATA.scenarios.map((s) => [s.no, s]));
 
-  // 비교 행 데이터 구성. v2 voice 기반으로 언어 판별:
-  //   Charon → en, Puck → vi, Leda → km
-  const VOICE_TO_LANG = { Charon: 'en', Puck: 'vi', Leda: 'km' };
-
   const rows = scenarios
-    .slice()
-    .sort((a, b) => a.no - b.no)
     .map((v2) => {
       const v0 = v2.source_scenario_no_v0 ? byNo.get(v2.source_scenario_no_v0) : null;
       const v1 = v2.source_scenario_no_v1 ? byNo.get(v2.source_scenario_no_v1) : null;
-      const langCode = VOICE_TO_LANG[v2.voice] || v2.language;
+      const langCode = extractLangFromFilename(v2) || extractLangFromFilename(v0) || v2.language;
       return { langCode, v0, v1, v2 };
+    })
+    .sort((a, b) => {
+      const ai = COMPARE_LANG_ORDER.indexOf(a.langCode);
+      const bi = COMPARE_LANG_ORDER.indexOf(b.langCode);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return a.v2.no - b.v2.no;
     });
 
   const compareTable = `
@@ -406,10 +422,14 @@ function renderTopikLongOptimizedView(meta, scenarios) {
 function renderCompareRow(row) {
   const langName = COMPARE_LANG_LABELS[row.langCode] || row.langCode;
   const voice = row.v2.voice;
+  const isExp = EXPERIMENTAL_LANGS.has(row.langCode);
+  const expBadge = isExp
+    ? '<span class="cmp-exp-badge">EXPERIMENTAL</span>'
+    : '';
   return `
-    <tr>
+    <tr class="${isExp ? 'cmp-row-exp' : ''}">
       <td class="cmp-lang-cell">
-        <div class="cmp-lang-name">${langName}</div>
+        <div class="cmp-lang-name">${langName}${expBadge}</div>
         <div class="cmp-voice-name">${voice}</div>
       </td>
       <td>${renderCompareCell(row.v0, 'v0')}</td>

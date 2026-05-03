@@ -505,18 +505,36 @@ button { font: inherit; cursor: pointer; }
 .comparison-table tbody tr:last-child td:last-child { border-bottom-right-radius: 8px; }
 
 .cmp-lang-cell {
-  min-width: 110px;
+  min-width: 130px;
 }
 .cmp-lang-name {
   font-weight: 600;
   color: var(--text-1);
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 .cmp-voice-name {
   font-size: 11.5px;
   color: var(--text-3);
   font-family: 'Geist Mono', ui-monospace, monospace;
   margin-top: 2px;
+}
+.cmp-exp-badge {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #FF6363;
+  background: rgba(255, 99, 99, 0.08);
+  border: 1px solid rgba(255, 99, 99, 0.55);
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.08em;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+.cmp-row-exp .cmp-lang-cell {
+  border-left: 2px solid rgba(255, 99, 99, 0.45);
 }
 
 .cmp-v2-cell {
