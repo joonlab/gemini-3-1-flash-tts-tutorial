@@ -471,7 +471,7 @@ button { font: inherit; cursor: pointer; }
 }
 .comparison-table {
   width: 100%;
-  min-width: 720px;
+  min-width: 920px;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 13px;
@@ -542,6 +542,39 @@ button { font: inherit; cursor: pointer; }
   box-shadow: inset 0 0 0 1px rgba(127, 227, 164, 0.18);
   position: relative;
 }
+
+.cmp-v3-cell {
+  background: rgba(133, 113, 77, 0.10) !important;
+  box-shadow: inset 0 0 0 1px rgba(133, 113, 77, 0.45),
+              inset 4px 0 0 0 rgba(133, 113, 77, 0.85);
+  position: relative;
+}
+.cmp-v3-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at top right,
+    rgba(133, 113, 77, 0.12) 0%,
+    transparent 60%
+  );
+}
+.cmp-v3-cell .cmp-meta-line { color: var(--gold); }
+.cmp-cell-v3 .cmp-no { color: var(--gold); }
+.cmp-dsp-line {
+  font-size: 10.5px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: 0.02em;
+  background: rgba(133, 113, 77, 0.12);
+  border: 1px solid rgba(133, 113, 77, 0.35);
+  padding: 3px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+.cmp-dsp-line.cmp-dsp-good { color: #C9A86A; }
+.cmp-dsp-line.cmp-dsp-neutral { color: var(--text-3); }
 
 .cmp-cell-inner {
   display: flex;
@@ -634,6 +667,43 @@ button { font: inherit; cursor: pointer; }
   color: var(--green);
   background: rgba(127, 227, 164, 0.08);
   border-color: rgba(127, 227, 164, 0.28);
+}
+
+/* v3 DSP 카드 */
+.scenario-card.v3-dsp {
+  background: linear-gradient(
+    180deg,
+    rgba(133, 113, 77, 0.10) 0%,
+    var(--surface-100) 70%
+  );
+  border-left: 4px solid var(--gold);
+  box-shadow:
+    rgba(133, 113, 77, 0.45) 0 0 0 1px,
+    rgba(133, 113, 77, 0.12) 0 0 24px;
+}
+.chunk-caption.v3-dsp-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.chunk-caption.v3-dsp-caption .v3-dsp-tags {
+  font-weight: 500;
+  color: var(--gold);
+}
+.chunk-caption.v3-dsp-caption .v3-dsp-metrics {
+  color: var(--text-2);
+  font-size: 10.5px;
+}
+.chunk-caption.v3-dsp-caption .v3-dsp-f0 {
+  color: #C9A86A;
+  font-weight: 500;
+  font-size: 10.5px;
+  background: rgba(133, 113, 77, 0.15);
+  padding: 2px 6px;
+  border-radius: 3px;
+  width: fit-content;
 }
 
 .scenario-card-top {

@@ -298,6 +298,8 @@ function renderAllCategories() {
       view.innerHTML = renderConsistencyTestView(meta, scenarios);
     } else if (cat === 'topik_long_optimized') {
       view.innerHTML = renderTopikLongOptimizedView(meta, scenarios);
+    } else if (cat === 'topik_long_v3_dsp') {
+      view.innerHTML = renderTopikLongV3DspView(meta, scenarios);
     } else {
       view.innerHTML = `
         <div class="view-header">
@@ -349,17 +351,33 @@ function extractLangFromFilename(sc) {
   return m ? m[1].toLowerCase() : null;
 }
 
-function renderTopikLongOptimizedView(meta, scenarios) {
-  // v2 시나리오: scenarios (이미 cat === topik_long_optimized 필터됨)
-  // 각 v2 시나리오 → source_scenario_no_v0 / source_scenario_no_v1 로 v0/v1 매칭
+function buildCompareRows(anchorScenarios) {
+  // anchorScenarios: 한 카테고리 (v2 또는 v3) 시나리오들
+  // source_scenario_no_v0 / v1 / v2 로 다른 버전 매칭
   const byNo = new Map(DATA.scenarios.map((s) => [s.no, s]));
+  const v3List = DATA.scenarios.filter((s) => s.category === 'topik_long_v3_dsp');
+  const v3ByV2No = new Map();
+  v3List.forEach((v3) => {
+    if (v3.source_scenario_no_v2) v3ByV2No.set(v3.source_scenario_no_v2, v3);
+  });
 
-  const rows = scenarios
-    .map((v2) => {
-      const v0 = v2.source_scenario_no_v0 ? byNo.get(v2.source_scenario_no_v0) : null;
-      const v1 = v2.source_scenario_no_v1 ? byNo.get(v2.source_scenario_no_v1) : null;
-      const langCode = extractLangFromFilename(v2) || extractLangFromFilename(v0) || v2.language;
-      return { langCode, v0, v1, v2 };
+  return anchorScenarios
+    .map((anchor) => {
+      const isV3 = anchor.category === 'topik_long_v3_dsp';
+      const v0 = anchor.source_scenario_no_v0 ? byNo.get(anchor.source_scenario_no_v0) : null;
+      const v1 = anchor.source_scenario_no_v1 ? byNo.get(anchor.source_scenario_no_v1) : null;
+      const v2 = isV3
+        ? anchor.source_scenario_no_v2
+          ? byNo.get(anchor.source_scenario_no_v2)
+          : null
+        : anchor;
+      const v3 = isV3 ? anchor : v3ByV2No.get(anchor.no) || null;
+      const langCode =
+        extractLangFromFilename(anchor) ||
+        extractLangFromFilename(v0) ||
+        extractLangFromFilename(v2) ||
+        anchor.language;
+      return { langCode, v0, v1, v2, v3 };
     })
     .sort((a, b) => {
       const ai = COMPARE_LANG_ORDER.indexOf(a.langCode);
@@ -367,15 +385,22 @@ function renderTopikLongOptimizedView(meta, scenarios) {
       if (ai !== -1 && bi !== -1) return ai - bi;
       if (ai !== -1) return -1;
       if (bi !== -1) return 1;
-      return a.v2.no - b.v2.no;
+      const an = (a.v3 && a.v3.no) || (a.v2 && a.v2.no) || 0;
+      const bn = (b.v3 && b.v3.no) || (b.v2 && b.v2.no) || 0;
+      return an - bn;
     });
+}
+
+function renderTopikLongOptimizedView(meta, scenarios) {
+  const rows = buildCompareRows(scenarios);
 
   const compareTable = `
     <div class="card section-card comparison-section">
-      <h2 class="section-title">🔬 v0 / v1 / v2 비교</h2>
+      <h2 class="section-title">🔬 v0 / v1 / v2 / v3 4-way 비교</h2>
       <p class="prose" style="margin-bottom:14px">
-        동일 voice(Charon/Puck/Leda) 기준으로 <strong>v0 single-shot</strong>,
-        <strong>v1 chunked merge</strong>, <strong>v2 optimized</strong> (balanced split + multi-speaker + loudnorm + crossfade)을 한 표에서 비교하세요.
+        동일 voice(Charon/Puck/Leda 등) 기준으로 <strong>v0 single-shot</strong>,
+        <strong>v1 chunked merge</strong>, <strong>v2 optimized</strong> (balanced split + multi-speaker + loudnorm + crossfade),
+        <strong>v3 DSP</strong> (F0 정규화 + Spectral matching) 4단계를 한 표에서 비교하세요.
       </p>
       <div class="comparison-table-wrap">
         <table class="comparison-table">
@@ -384,7 +409,8 @@ function renderTopikLongOptimizedView(meta, scenarios) {
               <th>언어 / Voice</th>
               <th>v0 single-shot</th>
               <th>v1 chunked</th>
-              <th>v2 optimized ✨</th>
+              <th>v2 optimized</th>
+              <th>v3 DSP ✨</th>
             </tr>
           </thead>
           <tbody>
@@ -394,7 +420,8 @@ function renderTopikLongOptimizedView(meta, scenarios) {
       </div>
       <div class="comparison-legend">
         <strong>Strategy:</strong>
-        balanced split (target ~1000 chars) · multi-speaker dummy · loudnorm -23 LUFS · silence trim · 100ms crossfade
+        v2 = balanced split (~1000 chars) · multi-speaker dummy · loudnorm -23 LUFS · silence trim · 100ms crossfade ·
+        <strong>v3 = v2 + F0 pitch normalize + Spectral envelope matching (ref-based)</strong>
       </div>
     </div>
   `;
@@ -419,9 +446,71 @@ function renderTopikLongOptimizedView(meta, scenarios) {
   `;
 }
 
+function renderTopikLongV3DspView(meta, scenarios) {
+  const rows = buildCompareRows(scenarios);
+
+  const avgReduction = (() => {
+    const vals = scenarios
+      .map((s) => s.dsp_metrics && s.dsp_metrics.f0_std_reduction_pct)
+      .filter((v) => typeof v === 'number');
+    if (!vals.length) return null;
+    return vals.reduce((a, b) => a + b, 0) / vals.length;
+  })();
+
+  const compareTable = `
+    <div class="card section-card comparison-section">
+      <h2 class="section-title">🔬 v0 / v1 / v2 / v3 4-way 비교</h2>
+      <p class="prose" style="margin-bottom:14px">
+        v2 청크에 <strong>F0 pitch 정규화</strong> + <strong>Spectral envelope matching</strong> DSP 후처리를 적용한
+        <strong>v3 DSP</strong> 결과를 v0/v1/v2와 4-way로 비교합니다.
+        ${avgReduction != null ? `평균 <strong>f0_std 감소 ${avgReduction.toFixed(1)}%</strong>로 청크 간 voice 일관성이 정량적으로 개선되었습니다.` : ''}
+      </p>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>언어 / Voice</th>
+              <th>v0 single-shot</th>
+              <th>v1 chunked</th>
+              <th>v2 optimized</th>
+              <th>v3 DSP ✨</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(renderCompareRow).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="comparison-legend">
+        <strong>v3 DSP pipeline:</strong>
+        🎼 F0 normalize (ratio clamp 0.85~1.18) · 🎚 Spectral envelope matching (50% bias) · 📊 ref-based 1st chunk · re-trim + re-loudnorm + crossfade merge
+      </div>
+    </div>
+  `;
+
+  const cardsGrid = `
+    <div class="view-section-divider">
+      <h2 class="view-section-title">v3 DSP 시나리오 카드 (${scenarios.length})</h2>
+      <p class="view-section-sub">F0 정규화 + Spectral matching 후처리 · DSP 메트릭 포함</p>
+    </div>
+    <div class="scenario-grid">
+      ${scenarios.map(renderScenarioCard).join('')}
+    </div>
+  `;
+
+  return `
+    <div class="view-header">
+      <h1 class="view-header-title">${catLabel('topik_long_v3_dsp')}</h1>
+      <p class="view-header-sub">${escapeHtml(meta.desc || meta.description || '')} · ${scenarios.length}개 시나리오</p>
+    </div>
+    ${compareTable}
+    ${cardsGrid}
+  `;
+}
+
 function renderCompareRow(row) {
   const langName = COMPARE_LANG_LABELS[row.langCode] || row.langCode;
-  const voice = row.v2.voice;
+  const voice = (row.v3 && row.v3.voice) || (row.v2 && row.v2.voice) || (row.v0 && row.v0.voice) || '-';
   const isExp = EXPERIMENTAL_LANGS.has(row.langCode);
   const expBadge = isExp
     ? '<span class="cmp-exp-badge">EXPERIMENTAL</span>'
@@ -435,6 +524,7 @@ function renderCompareRow(row) {
       <td>${renderCompareCell(row.v0, 'v0')}</td>
       <td>${renderCompareCell(row.v1, 'v1')}</td>
       <td class="cmp-v2-cell">${renderCompareCell(row.v2, 'v2')}</td>
+      <td class="cmp-v3-cell">${renderCompareCell(row.v3, 'v3')}</td>
     </tr>
   `;
 }
@@ -445,24 +535,41 @@ function renderCompareCell(sc, version) {
   const durText = dur ? formatDuration(dur) : '-';
   const chunkCount = Array.isArray(sc.chunk_paths) ? sc.chunk_paths.length : 0;
   let metaLine = '';
+  let dspLine = '';
   if (version === 'v0') {
     metaLine = '<span class="cmp-meta-line">single-shot</span>';
   } else if (version === 'v1') {
     metaLine = `<span class="cmp-meta-line">${chunkCount}청크 merge</span>`;
-  } else {
+  } else if (version === 'v2') {
     const norm = sc.normalize_method_counts || {};
     const normName =
       (norm.loudnorm || 0) > 0 ? 'loudnorm' : (norm.peak_normalize || 0) > 0 ? 'peak' : 'normalize';
     metaLine = `<span class="cmp-meta-line">${chunkCount}청크 · ${normName} · trim · crossfade</span>`;
+  } else {
+    // v3
+    const m = sc.dsp_metrics || {};
+    const adj = m.chunks_adjusted != null ? m.chunks_adjusted : 0;
+    const total = m.chunks_total != null ? m.chunks_total : chunkCount;
+    metaLine = `<span class="cmp-meta-line">${total}청크 · F0+Spectral · ${adj}/${total} adjusted</span>`;
+    if (m.f0_std_before_hz != null && m.f0_std_after_hz != null) {
+      const before = m.f0_std_before_hz.toFixed(1);
+      const after = m.f0_std_after_hz.toFixed(1);
+      const pct = m.f0_std_reduction_pct != null ? m.f0_std_reduction_pct.toFixed(1) : null;
+      const arrowClass = pct != null && pct >= 0 ? 'cmp-dsp-good' : 'cmp-dsp-neutral';
+      dspLine = `<span class="cmp-dsp-line ${arrowClass}">f0 std: ${before} → ${after} Hz${
+        pct != null ? ` (${pct >= 0 ? '−' : '+'}${Math.abs(pct).toFixed(1)}%)` : ''
+      }</span>`;
+    }
   }
   return `
-    <div class="cmp-cell-inner">
+    <div class="cmp-cell-inner ${version === 'v3' ? 'cmp-cell-v3' : ''}">
       <div class="cmp-cell-head">
         <span class="cmp-no">#${sc.no}</span>
         <span class="cmp-dur">${durText}</span>
       </div>
       <audio class="cmp-audio" controls preload="none" src="${sc.audio_relative_path}"></audio>
       ${metaLine}
+      ${dspLine}
     </div>
   `;
 }
@@ -545,9 +652,10 @@ function renderScenarioCard(sc) {
     : '';
 
   const isOptimizedV2 = sc.category === 'topik_long_optimized';
+  const isV3Dsp = sc.category === 'topik_long_v3_dsp';
 
   return `
-    <article class="scenario-card ${isMixed ? 'mixed-lang' : ''} ${isLong ? 'long-form' : ''} ${isExperimental ? 'experimental' : ''} ${isOptimizedV2 ? 'optimized-v2' : ''}">
+    <article class="scenario-card ${isMixed ? 'mixed-lang' : ''} ${isLong ? 'long-form' : ''} ${isExperimental ? 'experimental' : ''} ${isOptimizedV2 ? 'optimized-v2' : ''} ${isV3Dsp ? 'v3-dsp' : ''}">
       ${badgesHtml}
       <div class="scenario-card-top">
         <span class="scenario-no">No.${String(sc.no).padStart(2, '0')}</span>
@@ -587,6 +695,30 @@ function renderScenarioCard(sc) {
 }
 
 function renderChunkCaption(sc) {
+  if (sc.category === 'topik_long_v3_dsp') {
+    const m = sc.dsp_metrics || {};
+    const total = m.chunks_total != null ? m.chunks_total : (Array.isArray(sc.chunk_paths) ? sc.chunk_paths.length : 0);
+    const adj = m.chunks_adjusted != null ? m.chunks_adjusted : 0;
+    const ratioLine =
+      m.ratio_min != null && m.ratio_max != null
+        ? `ratio ${m.ratio_min.toFixed(2)}~${m.ratio_max.toFixed(2)}`
+        : '';
+    let f0Line = '';
+    if (m.f0_std_before_hz != null && m.f0_std_after_hz != null) {
+      const pct = m.f0_std_reduction_pct;
+      const pctText = pct != null ? `(${pct >= 0 ? '−' : '+'}${Math.abs(pct).toFixed(1)}%)` : '';
+      f0Line = `f0 std: ${m.f0_std_before_hz.toFixed(1)} → ${m.f0_std_after_hz.toFixed(1)} Hz ${pctText}`;
+    }
+    return `
+      <div class="chunk-caption v3-dsp-caption">
+        <div class="v3-dsp-tags">🎼 F0 normalize · 🎚 Spectral matching · 📊 ref-based</div>
+        <div class="v3-dsp-metrics">
+          <span>🧩 ${total}청크 · ${adj}/${total} adjusted${ratioLine ? ' · ' + ratioLine : ''}</span>
+        </div>
+        ${f0Line ? `<div class="v3-dsp-f0">${f0Line}</div>` : ''}
+      </div>
+    `;
+  }
   if (sc.category === 'topik_long_optimized') {
     const chunkCount = Array.isArray(sc.chunk_paths) ? sc.chunk_paths.length : 0;
     const norm = sc.normalize_method_counts || {};

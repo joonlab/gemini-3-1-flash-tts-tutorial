@@ -1,16 +1,16 @@
 # Gemini 3.1 Flash TTS Tutorial
 
-> Google **Gemini 3.1 Flash TTS Preview** 모델로 만든 65개 다국어/다감정 음성 합성 튜토리얼 + Audio Profile 일관성 전략 비교 실험 (v0/v1/v2 — 7개 언어 전체)
+> Google **Gemini 3.1 Flash TTS Preview** 모델로 만든 72개 다국어/다감정 음성 합성 튜토리얼 + Audio Profile 일관성 4단계(v0/v1/v2/v3 DSP) 비교 실험 (7개 언어 전체)
 
 **Live Demo**: https://joonlab.github.io/gemini-3-1-flash-tts-tutorial/
 
 ## 개요
 
 - **모델**: `gemini-3.1-flash-tts-preview` (Google AI Studio · `google-genai` SDK)
-- **시나리오**: 65개 (9개 카테고리)
+- **시나리오**: 72개 (10개 카테고리)
 - **언어**: 8개 — 한국어 · English · 日本語 · 中文 · Tiếng Việt · Русский · Oʻzbek* · ខ្មែរ* (* 실험적)
 - **Voice**: Kore / Puck / Charon / Zephyr / Leda (전체 30+ voice 중 5개 사용)
-- **총 오디오**: ~225분 58초 / ~620 MB
+- **총 오디오**: ~300분 / ~825 MB
 
 ## 카테고리 구성
 
@@ -25,7 +25,8 @@
 | `consistency_test` | Audio Profile 일관성 4전략 비교 (Advanced Prompt / Same prefix / Multi-speaker / Chunk merge) | 17 |
 | `topik_long_chunked` | 5섹션 청크 분할 + 300ms 무음 병합 — 장문 일관성 전략 (v1) | 7 |
 | `topik_long_optimized` | duration 균등 분할 + Multi-speaker + Loudnorm + Crossfade — 최적화 전략 (v2) | 7 |
-| **합계** | | **65** |
+| `topik_long_v3_dsp` | **v2 청크에 F0 정규화 + Spectral envelope matching DSP — 일관성 강화 (v3)** | **7** |
+| **합계** | | **72** |
 
 ## Audio Profile 일관성 4가지 전략
 
@@ -36,7 +37,7 @@
 3. **Multi-speaker** — multi-speaker 모드를 single-speaker 용도로 활용
 4. **Chunk merge** — 5개 섹션으로 분할 생성 후 300ms 무음 병합
 
-## 🔬 v0/v1/v2 비교 실험 (7개 언어 전체)
+## 🔬 v0/v1/v2/v3 4-way 비교 실험 (7개 언어 전체)
 
 10분 분량 TOPIK 종합 레슨에서 드리프트가 의심된 **7개 언어(EN/JA/ZH/VI/RU/UZ\*/KM\*)** 모두에 대해 단계적 최적화 결과를 비교 (\* = 실험적):
 
@@ -57,19 +58,39 @@
   3. 음량 정규화(`ffmpeg loudnorm -23 LUFS`) + 무음 트림 + 100ms 코사인 크로스페이드 병합
 - 28개 청크 모두 loudnorm 적용 · `INVALID_ARGUMENT` 에러 0건
 
+## 🎚 v3 DSP 일관성 보정
+
+v2 청크에 한 단계 더 강화된 **DSP 후처리**를 적용한 **v3** 결과 (시나리오 **#66~#72**):
+
+- **F0 pitch normalization** — pyworld dio/stonemask로 청크별 평균 F0를 추정한 뒤 1번째 청크(reference)에 맞춰 ratio 보정 (clamp 0.85~1.18)
+- **Spectral envelope matching** — pyworld cheaptrick으로 spectral envelope을 ref-bias 50%로 매칭
+- **재 trim + 재 loudnorm + 100ms crossfade** 병합
+
+### v3 정량 결과 — 평균 f0_std 감소 **−44.3%**
+
+| 언어 | f0_std before | f0_std after | 감소율 |
+|---|---|---|---|
+| Vietnamese (Puck) | 8.15 Hz | 2.42 Hz | **−70.3%** |
+| Russian (Zephyr) | 11.65 Hz | 4.40 Hz | **−62.2%** |
+| Khmer\* (Leda) | 10.77 Hz | 5.27 Hz | **−51.1%** |
+| Uzbek\* (Charon) | 13.17 Hz | 6.63 Hz | **−49.6%** |
+| Mandarin (Kore) | 7.62 Hz | 4.26 Hz | **−44.2%** |
+| English (Charon) | 5.49 Hz | 3.54 Hz | **−35.5%** |
+| Japanese (Leda) | 5.29 Hz | 5.44 Hz | −2.8% (이미 충분히 일관됨) |
+
 ### 핵심 결과 (duration 비교)
 
-| 언어 | v0 single | v1 chunked | v2 optimized | 청크 수 (v2) |
-|---|---|---|---|---|
-| English (Charon) | #28 | #52 | **#59 — 641s** | 6 |
-| Japanese (Leda) | #29 | #53 | **#62 — 615s** | 7 |
-| Mandarin (Kore) | #30 | #54 | **#63 — 583s** | 7 |
-| Vietnamese (Puck) | #31 | #55 | **#60 — 598s** | 6 |
-| Russian (Zephyr) | #32 | #56 | **#64 — 629s** | 7 |
-| Uzbek\* (Charon) | #33 | #57 | **#65 — 656s** | 7 |
-| Khmer\* (Leda) | #34 | #58 | **#61 — 735s** | 8 |
+| 언어 | v0 single | v1 chunked | v2 optimized | v3 DSP ✨ | 청크 수 |
+|---|---|---|---|---|---|
+| English (Charon) | #28 | #52 | #59 — 641s | **#66 — 641s** | 6 |
+| Japanese (Leda) | #29 | #53 | #62 — 615s | **#67 — 615s** | 7 |
+| Mandarin (Kore) | #30 | #54 | #63 — 583s | **#68 — 583s** | 7 |
+| Vietnamese (Puck) | #31 | #55 | #60 — 598s | **#69 — 598s** | 7 |
+| Russian (Zephyr) | #32 | #56 | #64 — 629s | **#70 — 629s** | 7 |
+| Uzbek\* (Charon) | #33 | #57 | #65 — 656s | **#71 — 656s** | 7 |
+| Khmer\* (Leda) | #34 | #58 | #61 — 735s | **#72 — 734s** | 8 |
 
-대시보드의 `topik_long_optimized` 카테고리에서 v0/v1/v2 7-row × 3-col 비교 청취 가능.
+대시보드의 `topik_long_optimized` 또는 `topik_long_v3_dsp` 카테고리에서 v0/v1/v2/v3 7-row × 4-col 비교 청취 가능.
 
 ## 로컬에서 실행하기
 
@@ -107,19 +128,24 @@ python3 generate_multispeaker.py --no 59
 python3 postprocess_merge.py --no 59
 ```
 
+v3 DSP 후처리 (F0 정규화 + Spectral matching) 적용:
+
+```bash
+# v2 청크 + dsp_merge.py
+python3 dsp_merge.py --no 66  # v2 #59 → v3 #66
+```
+
 ## 폴더 구조
 
 ```
 .
 ├── index.html              # 단일 페이지 대시보드 진입점
 ├── styles.css              # Raycast 영감 다크 테마
-├── app.js                  # 라우팅 + 카드 렌더링 + v0/v1/v2 비교 뷰
+├── app.js                  # 라우팅 + 카드 렌더링 + v0/v1/v2/v3 4-way 비교 뷰
 ├── data.json               # 통합 메타데이터 (시나리오 + 코드 본문 인라인)
-├── audio/                  # 65개 .wav (24kHz / 16-bit / mono PCM) + chunks/
+├── audio/                  # 72개 .wav (24kHz / 16-bit / mono PCM) + chunks/
 ├── script/                 # 시나리오 스크립트 원문
-├── code/                   # TTS 생성 Python 코드 (google-genai SDK + 후처리)
-├── research/               # 연구·조사 자료
-├── gemini_tts_test_mapping.xlsx
+├── code/                   # TTS 생성 Python 코드 (google-genai SDK + DSP 후처리)
 └── README.md
 ```
 
@@ -128,6 +154,7 @@ python3 postprocess_merge.py --no 59
 - **배경**: `#07080a` (near-black blue)
 - **서피스**: `#101111`
 - **강조 (Raycast Red)**: `#FF6363`
+- **v3 DSP gold**: `#85714D`
 - **블루 / 그린 / 옐로 / 골드** 보조색 사용
 - **폰트**: Inter (Google Fonts) + Geist Mono + Noto Sans KR
 - **카드 그림자**: double-ring (`outer 1px` + `inset 1px`)
@@ -136,7 +163,7 @@ python3 postprocess_merge.py --no 59
 
 - **Frontend**: Vanilla HTML/CSS/JS (프레임워크 없음)
 - **Backend (TTS 생성)**: Python 3 + `google-genai` SDK
-- **후처리**: ffmpeg (loudnorm -23 LUFS, silenceremove, acrossfade)
+- **후처리**: ffmpeg (loudnorm -23 LUFS, silenceremove, acrossfade) + pyworld (F0/spectral DSP)
 - **재시도 전략**: utils.py 강건한 exponential backoff
 - **호스팅**: GitHub Pages (정적)
 
@@ -147,7 +174,7 @@ python3 postprocess_merge.py --no 59
   - Input (text): **$1 / 1M tokens**
   - Output (audio): **$20 / 1M tokens**
   - 분당: **~$0.03 / minute**
-- 65개 시나리오 / ~226분 → 약 $6.8
+- 72개 시나리오 / ~300분 → 약 $9
 
 ## 라이선스
 
