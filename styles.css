@@ -450,6 +450,174 @@ button { font: inherit; cursor: pointer; }
   font-weight: 500;
 }
 
+/* ------------------------------------------------------------------
+   topik_long_optimized: v0/v1/v2 비교 뷰
+   ------------------------------------------------------------------ */
+.comparison-section {
+  border: 1px solid rgba(127, 227, 164, 0.18);
+  background: linear-gradient(
+    180deg,
+    rgba(127, 227, 164, 0.04) 0%,
+    var(--surface-100) 60%
+  );
+}
+.comparison-section .section-title {
+  color: var(--green);
+}
+.comparison-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 4px 0 14px 0;
+}
+.comparison-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.comparison-table thead th {
+  background: var(--surface-200);
+  color: var(--text-1);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--border-strong);
+  position: sticky;
+  top: 0;
+}
+.comparison-table thead th:first-child { border-top-left-radius: 8px; }
+.comparison-table thead th:last-child { border-top-right-radius: 8px; }
+.comparison-table thead th:last-child {
+  color: var(--green);
+}
+.comparison-table tbody td {
+  padding: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-100);
+}
+.comparison-table tbody tr:last-child td { border-bottom: none; }
+.comparison-table tbody tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+.comparison-table tbody tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+
+.cmp-lang-cell {
+  min-width: 110px;
+}
+.cmp-lang-name {
+  font-weight: 600;
+  color: var(--text-1);
+  font-size: 14px;
+}
+.cmp-voice-name {
+  font-size: 11.5px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  margin-top: 2px;
+}
+
+.cmp-v2-cell {
+  background: rgba(127, 227, 164, 0.06) !important;
+  box-shadow: inset 0 0 0 1px rgba(127, 227, 164, 0.18);
+  position: relative;
+}
+
+.cmp-cell-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 180px;
+}
+.cmp-cell-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.cmp-no {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.cmp-dur {
+  font-size: 12px;
+  color: var(--text-1);
+  font-weight: 600;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+.cmp-audio {
+  width: 100%;
+  height: 32px;
+}
+.cmp-meta-line {
+  font-size: 11px;
+  color: var(--text-3);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.cmp-v2-cell .cmp-meta-line { color: var(--green); }
+.cmp-empty {
+  display: inline-block;
+  color: var(--text-4);
+  font-size: 14px;
+}
+
+.comparison-legend {
+  font-size: 12px;
+  color: var(--text-3);
+  background: var(--surface-200);
+  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+.comparison-legend strong {
+  color: var(--green);
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+.view-section-divider {
+  margin: 28px 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
+.view-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.1px;
+}
+.view-section-sub {
+  font-size: 12.5px;
+  color: var(--text-3);
+  margin: 0;
+}
+
+/* v2 카드 (topik_long_optimized 카드만 글로우 강조) */
+.scenario-card.long-form.optimized-v2,
+.scenario-card.optimized-v2 {
+  background: linear-gradient(
+    180deg,
+    rgba(127, 227, 164, 0.07) 0%,
+    var(--surface-100) 70%
+  );
+  box-shadow:
+    rgba(127, 227, 164, 0.35) 0 0 0 1px,
+    rgba(127, 227, 164, 0.08) 0 0 24px;
+}
+
+.chunk-caption.optimized {
+  color: var(--green);
+  background: rgba(127, 227, 164, 0.08);
+  border-color: rgba(127, 227, 164, 0.28);
+}
+
 .scenario-card-top {
   display: flex;
   justify-content: space-between;

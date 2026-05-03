@@ -198,13 +198,14 @@ function renderOverview() {
   document.getElementById('hero-sub').textContent =
     `${total}개 시나리오 · ${langCount}개 언어 · ${voiceCount}개 voice · Multi-language emotion control`;
 
+  const catCount = Object.keys(DATA.categories || {}).length;
   const stats = [
-    { label: '총 시나리오', value: total, sub: '카테고리 5개' },
+    { label: '총 시나리오', value: total, sub: `카테고리 ${catCount}개` },
     { label: '성공률', value: successPct + '%', sub: `${success} / ${total}` },
     { label: '총 오디오 길이', value: formatDuration(totalDur), sub: `${totalDur.toFixed(1)}s` },
     { label: '총 사이즈', value: totalSizeMB.toFixed(1) + ' MB', sub: '24kHz / 16-bit / mono' },
     { label: '사용 voice', value: voiceCount, sub: (DATA.voices_used || []).join(' · ') },
-    { label: '테스트 언어', value: langCount, sub: '8개 + 다국어 혼합' },
+    { label: '테스트 언어', value: langCount, sub: '다국어 + 혼합 포함' },
   ];
 
   document.getElementById('stat-grid').innerHTML = stats
@@ -253,6 +254,7 @@ const SUB_STRATEGY_LABELS = {
   s4_long: 'S4 · Long',
   s4_chunk: 'S4 · Chunk',
   s4_merged: 'S4 · Merged',
+  balanced_multispeaker_normalized_crossfade: 'Balanced · Multi · Norm · Crossfade',
 };
 function formatSubStrategy(s) {
   return SUB_STRATEGY_LABELS[s] || s;
@@ -294,6 +296,8 @@ function renderAllCategories() {
 
     if (cat === 'consistency_test') {
       view.innerHTML = renderConsistencyTestView(meta, scenarios);
+    } else if (cat === 'topik_long_optimized') {
+      view.innerHTML = renderTopikLongOptimizedView(meta, scenarios);
     } else {
       view.innerHTML = `
         <div class="view-header">
@@ -307,8 +311,8 @@ function renderAllCategories() {
     }
   });
 
-  // bind audio + toggle handlers
-  document.querySelectorAll('.scenario-grid audio').forEach((aud) => {
+  // bind audio + toggle handlers (scenario cards + comparison table)
+  document.querySelectorAll('.scenario-grid audio, .comparison-table audio').forEach((aud) => {
     aud.addEventListener('play', onAudioPlay);
     aud.addEventListener('pause', onAudioPause);
     aud.addEventListener('ended', onAudioPause);
@@ -320,6 +324,127 @@ function renderAllCategories() {
       if (target) target.classList.toggle('open');
     });
   });
+}
+
+/* ------------------------------------------------------------------
+   topik_long_optimized view (v0/v1/v2 비교)
+   ------------------------------------------------------------------ */
+const COMPARE_LANG_LABELS = {
+  en: 'English',
+  vi: 'Vietnamese',
+  km: 'Khmer',
+};
+
+function renderTopikLongOptimizedView(meta, scenarios) {
+  // v2 시나리오: scenarios (이미 cat === topik_long_optimized 필터됨)
+  // 각 v2 시나리오 → source_scenario_no_v0 / source_scenario_no_v1 로 v0/v1 매칭
+  const byNo = new Map(DATA.scenarios.map((s) => [s.no, s]));
+
+  // 비교 행 데이터 구성. v2 voice 기반으로 언어 판별:
+  //   Charon → en, Puck → vi, Leda → km
+  const VOICE_TO_LANG = { Charon: 'en', Puck: 'vi', Leda: 'km' };
+
+  const rows = scenarios
+    .slice()
+    .sort((a, b) => a.no - b.no)
+    .map((v2) => {
+      const v0 = v2.source_scenario_no_v0 ? byNo.get(v2.source_scenario_no_v0) : null;
+      const v1 = v2.source_scenario_no_v1 ? byNo.get(v2.source_scenario_no_v1) : null;
+      const langCode = VOICE_TO_LANG[v2.voice] || v2.language;
+      return { langCode, v0, v1, v2 };
+    });
+
+  const compareTable = `
+    <div class="card section-card comparison-section">
+      <h2 class="section-title">🔬 v0 / v1 / v2 비교</h2>
+      <p class="prose" style="margin-bottom:14px">
+        동일 voice(Charon/Puck/Leda) 기준으로 <strong>v0 single-shot</strong>,
+        <strong>v1 chunked merge</strong>, <strong>v2 optimized</strong> (balanced split + multi-speaker + loudnorm + crossfade)을 한 표에서 비교하세요.
+      </p>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>언어 / Voice</th>
+              <th>v0 single-shot</th>
+              <th>v1 chunked</th>
+              <th>v2 optimized ✨</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(renderCompareRow).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="comparison-legend">
+        <strong>Strategy:</strong>
+        balanced split (target ~1000 chars) · multi-speaker dummy · loudnorm -23 LUFS · silence trim · 100ms crossfade
+      </div>
+    </div>
+  `;
+
+  const cardsGrid = `
+    <div class="view-section-divider">
+      <h2 class="view-section-title">v2 시나리오 카드 (${scenarios.length})</h2>
+      <p class="view-section-sub">balanced_multispeaker_normalized_crossfade 전략 · 카드별 청크 메타 포함</p>
+    </div>
+    <div class="scenario-grid">
+      ${scenarios.map(renderScenarioCard).join('')}
+    </div>
+  `;
+
+  return `
+    <div class="view-header">
+      <h1 class="view-header-title">${catLabel('topik_long_optimized')}</h1>
+      <p class="view-header-sub">${escapeHtml(meta.desc || meta.description || '')} · ${scenarios.length}개 시나리오</p>
+    </div>
+    ${compareTable}
+    ${cardsGrid}
+  `;
+}
+
+function renderCompareRow(row) {
+  const langName = COMPARE_LANG_LABELS[row.langCode] || row.langCode;
+  const voice = row.v2.voice;
+  return `
+    <tr>
+      <td class="cmp-lang-cell">
+        <div class="cmp-lang-name">${langName}</div>
+        <div class="cmp-voice-name">${voice}</div>
+      </td>
+      <td>${renderCompareCell(row.v0, 'v0')}</td>
+      <td>${renderCompareCell(row.v1, 'v1')}</td>
+      <td class="cmp-v2-cell">${renderCompareCell(row.v2, 'v2')}</td>
+    </tr>
+  `;
+}
+
+function renderCompareCell(sc, version) {
+  if (!sc) return '<span class="cmp-empty">—</span>';
+  const dur = sc.duration_sec || 0;
+  const durText = dur ? formatDuration(dur) : '-';
+  const chunkCount = Array.isArray(sc.chunk_paths) ? sc.chunk_paths.length : 0;
+  let metaLine = '';
+  if (version === 'v0') {
+    metaLine = '<span class="cmp-meta-line">single-shot</span>';
+  } else if (version === 'v1') {
+    metaLine = `<span class="cmp-meta-line">${chunkCount}청크 merge</span>`;
+  } else {
+    const norm = sc.normalize_method_counts || {};
+    const normName =
+      (norm.loudnorm || 0) > 0 ? 'loudnorm' : (norm.peak_normalize || 0) > 0 ? 'peak' : 'normalize';
+    metaLine = `<span class="cmp-meta-line">${chunkCount}청크 · ${normName} · trim · crossfade</span>`;
+  }
+  return `
+    <div class="cmp-cell-inner">
+      <div class="cmp-cell-head">
+        <span class="cmp-no">#${sc.no}</span>
+        <span class="cmp-dur">${durText}</span>
+      </div>
+      <audio class="cmp-audio" controls preload="none" src="${sc.audio_relative_path}"></audio>
+      ${metaLine}
+    </div>
+  `;
 }
 
 function renderConsistencyTestView(meta, scenarios) {
@@ -399,8 +524,10 @@ function renderScenarioCard(sc) {
     ? `<span class="sub-strategy-chip">${escapeHtml(formatSubStrategy(sc.sub_strategy))}</span>`
     : '';
 
+  const isOptimizedV2 = sc.category === 'topik_long_optimized';
+
   return `
-    <article class="scenario-card ${isMixed ? 'mixed-lang' : ''} ${isLong ? 'long-form' : ''} ${isExperimental ? 'experimental' : ''}">
+    <article class="scenario-card ${isMixed ? 'mixed-lang' : ''} ${isLong ? 'long-form' : ''} ${isExperimental ? 'experimental' : ''} ${isOptimizedV2 ? 'optimized-v2' : ''}">
       ${badgesHtml}
       <div class="scenario-card-top">
         <span class="scenario-no">No.${String(sc.no).padStart(2, '0')}</span>
@@ -422,11 +549,7 @@ function renderScenarioCard(sc) {
 
       <audio controls preload="none" src="${sc.audio_relative_path}"></audio>
 
-      ${
-        Array.isArray(sc.chunk_paths) && sc.chunk_paths.length > 0
-          ? `<div class="chunk-caption">🧩 ${sc.chunk_paths.length}청크 병합 (300ms 무음 삽입)</div>`
-          : ''
-      }
+      ${renderChunkCaption(sc)}
 
       <div class="btn-row">
         <button class="btn" data-toggle="${scriptId}">📜 스크립트 보기</button>
@@ -441,6 +564,33 @@ function renderScenarioCard(sc) {
       </div>
     </article>
   `;
+}
+
+function renderChunkCaption(sc) {
+  if (sc.category === 'topik_long_optimized') {
+    const chunkCount = Array.isArray(sc.chunk_paths) ? sc.chunk_paths.length : 0;
+    const norm = sc.normalize_method_counts || {};
+    const normLabel =
+      (norm.loudnorm || 0) > 0
+        ? `Loudnorm -23 LUFS (${norm.loudnorm}ch)`
+        : (norm.peak_normalize || 0) > 0
+        ? `Peak normalize (${norm.peak_normalize}ch)`
+        : 'Normalize';
+    let trimSec = 0;
+    if (Array.isArray(sc.chunk_records)) {
+      trimSec = sc.chunk_records.reduce((sum, r) => sum + (r.trim_savings_sec || 0), 0);
+    }
+    const trimText = trimSec ? `Silence trim −${trimSec.toFixed(1)}s` : 'Silence trim';
+    return `
+      <div class="chunk-caption optimized">
+        🧩 ${chunkCount}청크 (balanced split) · 🎚 ${normLabel} · ✂️ ${trimText} · 🔄 100ms crossfade
+      </div>
+    `;
+  }
+  if (Array.isArray(sc.chunk_paths) && sc.chunk_paths.length > 0) {
+    return `<div class="chunk-caption">🧩 ${sc.chunk_paths.length}청크 병합 (300ms 무음 삽입)</div>`;
+  }
+  return '';
 }
 
 function onAudioPlay(e) {
@@ -700,7 +850,7 @@ function renderPricing() {
     </div>
 
     <div class="pricing-summary">
-      <div class="stat-label" style="margin-bottom:8px">이 프로젝트 27개 시나리오 합산 예상 비용</div>
+      <div class="stat-label" style="margin-bottom:8px">이 프로젝트 ${DATA.scenarios.length}개 시나리오 합산 예상 비용</div>
       <div class="big-num">$${totalCost}</div>
       <div class="stat-sub" style="margin-top:8px">총 ${formatDuration(totalDur)} (${totalMin.toFixed(2)}분) × $${perMin.toFixed(2)}/min</div>
     </div>
